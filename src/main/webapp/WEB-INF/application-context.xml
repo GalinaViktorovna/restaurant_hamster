@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>WEB-INF/jdbc.properties</value>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driver.class}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+    <bean id="employeeService" class="com.goit.restaurant.hamster.service.EmployeeService">
+        <property name="employeeDao" ref="employeeDao"/>
+    </bean>
+
+    <bean id="employeeDao" class="com.goit.restaurant.hamster.dao.hibernate.HEmployeeDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="positionService" class="com.goit.restaurant.hamster.service.PositionService">
+        <property name="positionDao" ref="positionDao"/>
+    </bean>
+
+    <bean id="positionDao" class="com.goit.restaurant.hamster.dao.hibernate.HPositionDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="dishService" class="com.goit.restaurant.hamster.service.DishService">
+        <property name="dishDao" ref="dishDao"/>
+    </bean>
+
+    <bean id="dishDao" class="com.goit.restaurant.hamster.dao.hibernate.DishDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="menuService" class="com.goit.restaurant.hamster.service.MenuService">
+        <property name="MenuDao" ref="menuDao"/>
+    </bean>
+
+    <bean id="menuDao" class="com.goit.restaurant.hamster.dao.hibernate.HMenuDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="ingredientService" class="com.goit.restaurant.hamster.service.IngredientService">
+        <property name="ingredientDao" ref="ingredientDao"/>
+    </bean>
+
+    <bean id="ingredientDao" class="com.goit.restaurant.hamster.dao.hibernate.HIngredientDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="orderService" class="com.goit.restaurant.hamster.service.OrderInfoService">
+        <property name="orderDao" ref="orderDao"/>
+    </bean>
+
+    <bean id="orderDao" class="com.goit.restaurant.hamster.dao.hibernate.HOrderInfoDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="kitchenJournalService" class="com.goit.restaurant.hamster.service.KitchenJournalService">
+        <property name="kitchenJournalDao" ref="kitchenJournalDao"/>
+        <property name="ingredientService" ref="ingredientService"/>
+        <property name="dishService" ref="dishService"/>
+    </bean>
+
+    <bean id="kitchenJournalDao" class="com.goit.restaurant.hamster.dao.hibernate.HKitchenJournalDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="imageService" class="com.goit.restaurant.hamster.service.ImageService">
+        <property name="imageDao" ref="imageDao"/>
+    </bean>
+
+    <bean id="imageDao" class="com.goit.restaurant.hamster.dao.hibernate.HImageDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>
